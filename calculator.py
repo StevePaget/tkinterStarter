@@ -9,9 +9,9 @@ class App(tk.Tk):
         self.geometry("400x600+100+100")
         self.titlefont = tkFont.Font(family="Courier", size=40, slant="italic")
         self.buttonFont = tkFont.Font(family="Arial", size=40)
-        self.output = tk.Label(text="Output",fg="#111111", bg="#AAAAFF", font=self.titlefont)
+        self.output = tk.Label(text="Output",fg="#111111", bg="#a3f7f1", font=self.titlefont)
         self.output.grid(column=0, row=0, columnspan=4, sticky="NSEW")
-        self.b7 = tk.Button(text="7", font=self.buttonFont)
+        self.b7 = tk.Button(text="7", font=self.buttonFont, command = lambda: self.digitPressed(7))
         self.b7.grid(row=1,column=0, sticky="NSEW")
         self.b8 = tk.Button(text="8", font=self.buttonFont)
         self.b8.grid(row=1,column=1, sticky="NSEW")
@@ -53,5 +53,7 @@ class App(tk.Tk):
         self.rowconfigure(4,weight=100)
         self.mainloop()  
 
+    def digitPressed(self,num):
+        self.output.config(text="Pressed " + str(num))
    
 app = App()
