@@ -51,9 +51,34 @@ class App(tk.Tk):
         self.rowconfigure(2,weight=100)
         self.rowconfigure(3,weight=100)
         self.rowconfigure(4,weight=100)
+        self.currentNumber = ""
+        self.total = 0
+        self.operation = "add"
         self.mainloop()  
 
     def digitPressed(self,num):
-        self.output.config(text="Pressed " + str(num))
+        self.currentNumber += str(num)
+        self.output.config(text=self.currentNumber)
+
+    def plusPressed(self):
+        # set current operation to add
+        # put current number into the total
+        # start a new current number
+        pass
+
+    def minuspressed(self):
+        # set current operation to subtract
+        # put current number into the total
+        # start a new current number
+        pass
+
+    def equalsPressed(self):
+        # if the current operation is "add"
+        #    Add the current number to the total
+        #    output the result
+        # if the current operation is "subtract"
+        #    subtract the current number from the total
+        #    output the result
+    
    
 app = App()
