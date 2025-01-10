@@ -79,6 +79,7 @@ class App(tk.Tk):
         # if the current operation is "subtract"
         #    subtract the current number from the total
         #    output the result
+        pass
     
    
 app = App()
