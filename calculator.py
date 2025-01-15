@@ -9,7 +9,7 @@ class App(tk.Tk):
         self.geometry("400x600+100+100")
         self.titlefont = tkFont.Font(family="Courier", size=40, slant="italic")
         self.buttonFont = tkFont.Font(family="Arial", size=40)
-        self.output = tk.Label(text="Output",fg="#111111", bg="#a3f7f1", font=self.titlefont)
+        self.output = tk.Label(text="",fg="#111111", bg="#a3f7f1", font=self.titlefont)
         self.output.grid(column=0, row=0, columnspan=4, sticky="NSEW")
         self.b7 = tk.Button(text="7", font=self.buttonFont, command = lambda: self.digitPressed(7))
         self.b7.grid(row=1,column=0, sticky="NSEW")
@@ -29,11 +29,11 @@ class App(tk.Tk):
         self.b2.grid(row=3,column=1, sticky="NSEW")
         self.b3 = tk.Button(text="3", font=self.buttonFont, command = lambda: self.digitPressed(3))
         self.b3.grid(row=3,column=2, sticky="NSEW")
-        self.plus = tk.Button(text="+", font=self.buttonFont)
+        self.plus = tk.Button(text="+", font=self.buttonFont,command= self.plusPressed)
         self.plus.grid(row=2,column=3, sticky="NSEW")
-        self.minus = tk.Button(text="-", font=self.buttonFont)
+        self.minus = tk.Button(text="-", font=self.buttonFont, command= self.minusPressed)
         self.minus.grid(row=1,column=3, sticky="NSEW")
-        self.equals = tk.Button(text="=", font=self.buttonFont)
+        self.equals = tk.Button(text="=", font=self.buttonFont,command= self.equalsPressed)
         self.equals.grid(row=3,column=3, rowspan=2, sticky="NSEW")
         self.b0 = tk.Button(text="0", font=self.buttonFont, command = lambda: self.digitPressed(0))
         self.b0.grid(row=4,column=1, sticky="NSEW")
@@ -53,24 +53,35 @@ class App(tk.Tk):
         self.rowconfigure(4,weight=100)
         self.currentNumber = ""
         self.total = 0
-        self.operation = "add"
+        self.operation = "+"
         self.mainloop()  
 
     def digitPressed(self,num):
         self.currentNumber += str(num)
-        self.output.config(text=self.currentNumber)
+        if self.total == 0:
+            self.output.config(text=self.currentNumber)
+        else:
+            self.output.config(text=str(self.total) + self.operation + self.currentNumber)
 
     def plusPressed(self):
         # set current operation to add
         # put current number into the total
         # start a new current number
-        pass
+        self.equalsPressed()
+        self.operation = "+"
+        self.currentNumber=""
+        self.output.config(text=str(self.total) + self.operation + self.currentNumber)
 
-    def minuspressed(self):
+
+    def minusPressed(self):
         # set current operation to subtract
         # put current number into the total
         # start a new current number
-        pass
+        self.equalsPressed()
+        self.operation = "-"
+        self.currentNumber=""
+        self.output.config(text=str(self.total) + self.operation + self.currentNumber)
+
 
     def equalsPressed(self):
         # if the current operation is "add"
@@ -79,7 +90,16 @@ class App(tk.Tk):
         # if the current operation is "subtract"
         #    subtract the current number from the total
         #    output the result
-        pass
+        if self.currentNumber == "":
+            return
+        if self.operation == "+":
+            self.total += int(self.currentNumber)
+        elif self.operation == "-":
+            self.total -= int(self.currentNumber)
+        self.currentNumber = ""
+        self.output.config(text=self.total)
+        
     
    
 app = App()
+
